@@ -1,21 +1,15 @@
 require 'spec_helper_acceptance'
-require 'beaker-puppet'
 
-describe 'sumo class: management of sources' do
-  # Using puppet_apply as a helper
+describe 'sumo class: management of sources', if: ['debian', 'redhat', 'ubuntu'].include?(os[:family]) do
   it 'should work idempotently with no errors' do
-    pp = <<-EOS
-    class { 'sumo':
-      accessid           => 'suDjgwyOrmk6ac',
-      accesskey          => 'AG6pi346LNMKjQ6oYV0cjCAYLYfuDswX6TLygw2YHtdiTbYiV8jOuPVskhkx7b6c',
-      collector_url      => 'https://nite-events.sumologic.net',
-      manage_sources     => true,
-    }
-    EOS
-
-    # Run it twice and test for idempotency
-    apply_manifest(pp, :catch_failures => true)
-    apply_manifest(pp, :catch_changes  => true)
+  pp = <<-EOS
+  class { 'sumo':
+    accessid           => 'su8vSKfLFRihLV',
+    accesskey          => '2GXK79FPfchJeEDHCYwjQ3FTuwOrcJdPvZy2VwrUySjIaKTXznQKoXf49HiqzQNg',
+    manage_sources     => true,
+  }
+  EOS
+  idempotent_apply(pp)
   end
 
   describe file('/usr/local/sumo') do
@@ -36,5 +30,10 @@ describe 'sumo class: management of sources' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
+  end
+
+  describe service('collector') do
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
   end
 end

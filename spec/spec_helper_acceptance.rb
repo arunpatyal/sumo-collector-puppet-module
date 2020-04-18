@@ -1,27 +1,30 @@
-require 'beaker-rspec'
-require 'beaker-puppet'
-require 'beaker/puppet_install_helper'
-require 'beaker/module_install_helper'
+# frozen_string_literal: true
 
-run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
-install_module
-install_module_dependencies
+# require 'beaker-rspec'
+# require 'beaker-puppet'
+# require 'beaker/puppet_install_helper'
+# require 'beaker/module_install_helper'
 
-RSpec.configure do |c|
-  # Project root
-  proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+require 'puppet_litmus'
+require 'spec_helper_acceptance_local' if File.file?(File.join(File.dirname(__FILE__), 'spec_helper_acceptance_local.rb'))
 
-  # Readable test descriptions
-  c.formatter = :documentation
+PuppetLitmus.configure!
+# run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
 
-  # Configure all nodes in nodeset
-  c.before :suite do
-    # Install module and dependencies
-    puppet_module_install(:source => proj_root, :module_name => 'sumo')
-    
-    # Will likely need stdlib in the future, just uncomment this
-    hosts.each do |host|
-      on host, puppet('module', 'install', 'puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
-    end
-  end
-end
+# PuppetLitmus.configure do |c|
+#   # Project root
+#   proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+
+#   # Readable test descriptions
+#   c.formatter = :documentation
+
+#   # Configure all nodes in nodeset
+#   c.before :suite do
+#     # Install module and dependencies
+#     puppet_module_install(:source => proj_root, :module_name => 'sumo')
+#     # Will likely need stdlib in the future, just uncomment this
+#     hosts.each do |host|
+#       on host, puppet('module', 'install', 'puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
+#     end
+#   end
+# end
