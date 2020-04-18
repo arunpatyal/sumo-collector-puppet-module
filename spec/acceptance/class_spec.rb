@@ -4,8 +4,8 @@ describe 'sumo class: management of sources', if: ['debian', 'redhat', 'ubuntu']
   it 'should work idempotently with no errors' do
   pp = <<-EOS
   class { 'sumo':
-    accessid           => 'su8vSKfLFRihLV',
-    accesskey          => '2GXK79FPfchJeEDHCYwjQ3FTuwOrcJdPvZy2VwrUySjIaKTXznQKoXf49HiqzQNg',
+    accessid           => 'type your id here',
+    accesskey          => 'type your key here',
     manage_sources     => true,
   }
   EOS
