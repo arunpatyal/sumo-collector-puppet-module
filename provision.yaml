@@ -1,7 +1,7 @@
 ---
     default:
       provisioner: docker
-      images: ['litmusimage/centos7']
+      images: ['debian:8']
     travis_deb:
       provisioner: docker
       images: ['debian:8', 'debian:9', 'ubuntu:14.04', 'ubuntu:16.04', 'ubuntu:18.04']
