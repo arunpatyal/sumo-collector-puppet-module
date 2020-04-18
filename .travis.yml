@@ -28,7 +28,7 @@ matrix:
   fast_finish: true
   include:
     -
-      env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
+      env: PUPPET_VERSION=puppet5 CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
       stage: static
     -
       env: PUPPET_VERSION=puppet5 PLATFORMS=debian_puppet5 CHECK=litmus:acceptance:parallel
