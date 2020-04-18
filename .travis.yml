@@ -40,7 +40,7 @@ matrix:
       stage: spec
 
 before_script:
-  - bundle exec rake 'litmus:provision_list[travis_deb]'
+  - bundle exec rake 'litmus:provision_list[docker, centos:7]'
   - bundle exec bolt command run 'apt-get install wget -y' --inventoryfile inventory.yaml --nodes='localhost*'
   - bundle exec rake 'litmus:install_agent[$PUPPET_VERSION]'
   - bundle exec rake litmus:install_module

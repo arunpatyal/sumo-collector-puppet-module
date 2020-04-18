@@ -417,7 +417,7 @@ PLATFORMS
 DEPENDENCIES
   fast_gettext
   json (= 2.1.0)
-  puppet (= 6.14.0)
+  puppet
   puppet-module-posix-default-r2.5 (~> 0.4)
   puppet-module-posix-dev-r2.5 (~> 0.4)
   puppet-module-win-default-r2.5 (~> 0.4)
@@ -427,4 +427,4 @@ DEPENDENCIES
   serverspec
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
