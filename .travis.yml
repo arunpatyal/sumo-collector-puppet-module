@@ -42,10 +42,10 @@ matrix:
 before_script:
   - bundle exec rake 'litmus:provision[docker, centos:7]'
 #  - bundle exec bolt command run 'apt-get install wget -y' --inventoryfile inventory.yaml --targets 'localhost*'
-  - bundle exec rake 'litmus:install_agent[$PUPPET_VERSION]'
-  - bundle exec rake 'litmus:install_module'
+  - bundle exec rake litmus:install_agent[$PUPPET_VERSION]
+  - bundle exec rake litmus:install_module
 script:
-  - 'bundle exec rake $CHECK'
+  - 'bundle exec rake $CHECK --trace'
 #      env: DEPLOY_TO_FORGE=yes
 #      stage: deploy
 branches:
