@@ -1,15 +1,15 @@
 require 'spec_helper_acceptance'
 
 describe 'sumo class: management of sources', if: ['debian', 'redhat', 'ubuntu'].include?(os[:family]) do
-  it 'should work idempotently with no errors' do
-  pp = <<-EOS
-  class { 'sumo':
-    accessid           => 'type your id here',
-    accesskey          => 'type your key here',
-    manage_sources     => true,
-  }
-  EOS
-  idempotent_apply(pp)
+  it 'is_expected.to work idempotently with no errors' do
+    pp = <<-EOS
+    class { 'sumo':
+      accessid           => 'type your id here',
+      accesskey          => 'type your key here',
+      manage_sources     => true,
+    }
+    EOS
+    idempotent_apply(pp)
   end
 
   describe file('/usr/local/sumo') do
@@ -22,8 +22,8 @@ describe 'sumo class: management of sources', if: ['debian', 'redhat', 'ubuntu']
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { should contain 'accessid' }
-    it { should contain 'accesskey' }
+    it { is_expected.to contain 'accessid' }
+    it { is_expected.to contain 'accesskey' }
   end
 
   describe file('/usr/local/sumo/sources.json') do

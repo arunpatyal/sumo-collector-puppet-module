@@ -86,3 +86,58 @@ EOM
   end
 end
 
+desc "Run unit tests"
+RSpec::Core::RakeTask.new(:rspec) do |t|
+  t.pattern = 'spec/classes/sumo/*_spec.rb'
+end
+
+desc "Validate manifests, templates, and ruby files"
+task :test => [
+    :syntax,
+    :validate_output,
+    :validate,
+    :spec_output,
+    :spec,
+    :lint_output,
+    :lint,
+    :symlinks,
+    :git_ignore,
+    :dot_underscore,
+    :test_file,
+    :metadata_lint,
+    :rubocop
+]
+
+task :validate_output do
+  puts '---> parser validate'
+end
+
+task :spec_output do
+  puts '---> spec'
+end
+
+task :lint_output do
+  puts '---> puppet-lint'
+end
+
+task :validate do
+  Dir['manifests/*.pp'].each do |manifest|
+    sh "puppet parser validate --noop #{manifest}"
+  end
+end
+
+task :symlinks do
+  puts '---> check:symlinks'
+end
+
+task :git_ignore do
+  puts '---> check:git_ignore'
+end
+
+task :dot_underscore do
+  puts '---> check:dot_underscore'
+end
+
+task :test_file do
+  puts '---> check:test_file'
+end

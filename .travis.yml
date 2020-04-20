@@ -3,8 +3,6 @@ language: ruby
 dist: trusty
 cache: bundler
 before_install:
-#  - gem uninstall bundler
-#  - gem install bundler --version 1.17.2
   - bundle update --bundler
   - bundle -v
   - rm -f Gemfile.lock
@@ -18,18 +16,13 @@ bundler_args: --without system_tests
 rvm:
   - 2.5.7
 stages:
-  - static
   - spec
-  - acceptance
   -
     if: tag =~ ^v\d
     name: deploy
 matrix:
   fast_finish: true
   include:
-    # -
-    #   env: PUPPET_VERSION=puppet5 CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
-    #   stage: static
     -
       env: PUPPET_VERSION=puppet5 PLATFORMS=debian_puppet5 CHECK=litmus:acceptance:parallel
       rvm: 2.5.7
@@ -39,13 +32,8 @@ matrix:
       rvm: 2.5.7
       stage: spec
 
-before_script:
-  - bundle exec rake 'litmus:provision[docker, centos:7]'
-#  - bundle exec bolt command run 'apt-get install wget -y' --inventoryfile inventory.yaml --targets 'localhost*'
-  - bundle exec rake litmus:install_agent[$PUPPET_VERSION]
-  - bundle exec rake litmus:install_module
 script:
-  - 'bundle exec rake $CHECK --trace'
+  - 'bundle exec rake test'
 #      env: DEPLOY_TO_FORGE=yes
 #      stage: deploy
 branches:
