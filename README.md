@@ -8,12 +8,23 @@ sumo-collector-puppet-module
 * Currently, the module only supports the installation of latest collector version.
 * Upgrade of the collector is not supported currently.
 
+#### Note: 
+For Puppet 4.x and later:
+
+* Utilize the release v0.2.1 or later. Release v0.2.1 and subsequent v0.2.x releases will be enhanced per puppet guidelines to support latest puppet versions.
+
+For Puppet 3.x:
+
+* Utilize the release v1.0.6 if you need sumo.conf compatibility.
+* Utilize the release v1.0.8 if you need latest SumoLogic collector compatibility.
+
+
 ## Setup
 
 To install Sumo Puppet Module follow below steps:
 * Navigate to Puppet global modules directory or specific environment modules directory.
 * Clone the Sumo Puppet module.
-* Rename the module as sumo.
+* Rename the module as sumo.    
 
 
 ## Usage
@@ -23,7 +34,7 @@ Once the Sumo puppet module is installed, you will need to supply the sumo class
 * The accessid.
 * The accesskey.
 
-OR
+OR 
 
 * One-time token for installation.
 
@@ -95,7 +106,7 @@ class { 'sumo':
 }
 ```
 
-Advanced example illustrating passing additional command-line parameters and using binary package for installation:
+Advanced example illustrating passing additional command-line parameters and using rpm or deb package for installation:
 
 ```Puppet
 class { 'sumo':
@@ -103,6 +114,22 @@ class { 'sumo':
   accesskey               => 'accesskey',
   sync_sources_override   => true,
   use_package	          => true,
+  local_config_mgmt       => true,
+  clobber                 => false, 
+  ephemeral               => true,
+  skip_access_key_removal => true,
+}
+```
+
+Advanced example illustrating tarball binary package for installation:
+
+```Puppet
+class { 'sumo':
+  accessid                => 'accessid',
+  accesskey               => 'accesskey',
+  sync_sources_override   => true,
+  use_package	          => false,
+  use_tar_pkg             => true,
   local_config_mgmt       => true,
   clobber                 => false, 
   ephemeral               => true,
@@ -129,7 +156,7 @@ The only required parameters are a pair of authentication parameters: `accessid`
 | description           | Description for the Collector to appear in Sumo Logic                                                                                                                                                         | undef
 | disable_action_source | To disable the running of script-based Sources                                                                                                                                                                | undef
 | disable_script_source | To disable the running of script-based action Sources                                                                                                                                                         | undef
-| disable_upgrade       | If true, the Collector rejects upgrade requests from Sumo Logic                                                                                                                                               | undef
+| disable_upgrade       | If true, the Collector rejects upgrade requests from Sumo Logic                                                                                                                                               | undef                                                        
 | ephemeral             | Whether to mark the collector as ephemeral                                                                                                                                                                    | false
 | hostname              | The host name of the machine on which the Collector is running                                                                                                                                                | Hostname
 | local_config_mgmt     | If you want this module to enable local config management                                                                                                                                                     | false
@@ -141,7 +168,7 @@ The only required parameters are a pair of authentication parameters: `accessid`
 | proxy_user            | When using a proxy, the user to connect as                                                                                                                                                                    | undef
 | runas_username        | When set, the Collector will run as the specified user                                                                                                                                                        | undef
 | skip_access_key_removal| If true, it will skip the access key removal from the user.properties file                                                                                                                                   | false
-| skip_registration     | When true, the Collector will install files and create user.properties file, but not register or start the Collector                                                                                          | undef
+| skip_registration     | When true, the Collector will install files and create user.properties file, but not register or start the Collector                                                                                          | 'false'
 | sources_override      | If you want this module to manage your sources file                                                                                                                                                           | false
 | sources_directory_or_file| 'file': Sources are listed in a single JSON file (sources.json/syncsources.json) in default dir. 'dir': Sources are listed in multiple JSON files under the default directory. (/usr/local/sumo or c:\sumo)| 'file'
 | sumo_exec             | The installation executable name                                                                                                                                                                              | architecture specific
@@ -155,7 +182,8 @@ The only required parameters are a pair of authentication parameters: `accessid`
 | sync_sources_override | If you want this module to manage your sync sources file                                                                                                                                                      | false
 | target_cpu            | You can choose to set a CPU target to limit the amount of CPU processing a Collector uses                                                                                                                     | undef
 | time_zone             | The time zone to use when the time zone can't be extracted from the time stamp                                                                                                                                | undef
-| use_package           | Install a binary package, not from script                                                                                                                                                                     | false
+| use_package           | Install from a rpm or a deb package. This flag overrides the tarball flag: use_tar_pkg i.e. if both use_package and use_tar_pkg are true, the rpm or the deb package will be used for installation.           | false
+| use_tar_pkg           | Install from a tarball.                                                                                                                                                                                       | false
 | win_run_as_password   | When set in conjunction with -VrunAs.username, the Collector will run as the specified user with the specified password                                                                                       | undef
 
 ## Testing / Contributing

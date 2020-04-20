@@ -25,7 +25,7 @@ class sumo (
   $proxy_user                      = undef,
   $runas_username                  = undef,
   Boolean $skip_access_key_removal = false,
-  $skip_registration               = undef,
+  $skip_registration               = 'false',
   $sources_directory_or_file       = 'file',
   $sumo_exec                       = $sumo::params::sumo_exec,
   $sumo_json_source_path           = $sumo::params::sumo_json_source_path,
@@ -34,11 +34,13 @@ class sumo (
   $sumo_package_provider           = $sumo::params::sumo_package_provider,
   $sumo_package_filename           = $sumo::params::sumo_package_filename,
   $sumo_short_arch                 = $sumo::params::sumo_short_arch,
+  $sumo_tanuki_wrapper             = $sumo::params::sumo_tanuki_wrapper,
   $sumo_win_arch                   = $sumo::params::sumo_win_arch,
   $target_cpu                      = undef,
   $token                           = undef,
   $time_zone                       = undef,
   Boolean $use_package             = false,
+  Boolean $use_tar_pkg             = false,
   $win_run_as_password             = undef,
 ) inherits sumo::params {
 

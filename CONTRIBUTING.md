@@ -94,3 +94,10 @@ To run against a set of environments, modify the `provision.yaml` and create you
     ```shell
     bundle exec rake 'litmus:provision_list[release_checks]'
     ```
+In some OS images, curl and libfreetype6 may not be pre-installed. Make sure these are available before running acceptance tests.
+
+    ```shell
+    docker exec <container_id>  apt-get install -y curl
+    docker exec <container_id> apt-get install -y libfreetype6
+    ```
+`<container_id>` can be obtained by running `docker ps`.
