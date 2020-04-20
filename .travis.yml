@@ -26,19 +26,12 @@ matrix:
   fast_finish: true
   include:
     -
-      env: PUPPET_VERSION=puppet5
-      rvm: 2.5.7
-      stage: spec
-    -
-      env: PUPPET_VERSION=puppet6
       rvm: 2.5.1
       stage: spec
     -
-      env: PUPPET_VERSION=puppet6
       rvm: 2.5.3
       stage: spec
     -
-      env: PUPPET_VERSION=puppet6
       rvm: 2.5.7
       stage: spec
 
