@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of sumologic-collector.
 
+## 0.2.3:
+April 20, 2020
+Merged [PR40](https://github.com/SumoLogic/sumo-collector-puppet-module/pull/40): Added Litmus Acceptance Tests.
+
+## 0.2.3:
+April 20, 2020
+Merged [PR39](https://github.com/SumoLogic/sumo-collector-puppet-module/pull/39): Fixed Skip Registration Logic.
+
 ## 0.2.1:
 August 28, 2018
 Merged [PR33](https://github.com/SumoLogic/sumo-collector-puppet-module/pull/33): Added Vagrant Beaker test configurations.   

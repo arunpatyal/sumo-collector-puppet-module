@@ -8,4 +8,4 @@ fixtures:
   forge_modules:
      stdlib:
        repo: "puppetlabs/stdlib"
-       ref: "4.12.0"
+       ref: "6.3.0"
